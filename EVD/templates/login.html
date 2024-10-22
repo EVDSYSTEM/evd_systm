@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup/Login - Emergency Vehicle Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='loginCSS.css') }}">
+</head>
+<body>
+    <!-- Header -->
+<!-- Header -->
+<header>
+    <div class="logo-container">
+        <a href="#" class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Emergency Vehicle Logo"></a>
+        <div class="website-name">Emergency Vehicle Detection System</div>
+    </div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+
+    </nav>
+
+        
+    <div class="menu-toggle">&#9776;</div>
+</header>
+
+
+
+    <!-- Main content -->
+    <div class="form-container">
+        <div class="toggle-buttons">
+            <button id="login-btn" class="active">Login</button>
+            <button id="signup-btn">Signup</button>
+        </div>
+    
+        <!-- Login Form -->
+        <form id="login-form" class="active-form" method="POST" action="/login">
+            <h2>Login</h2>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    
+        <!-- Signup Form -->
+        <form id="signup-form" class="hidden" method="POST" action="/signup">
+            <h2>Signup</h2>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Signup</button>
+        </form>
+    </div>
+    
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Footer -->
+    <footer>
+        <nav2 class="vertical-nav">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+        <p>&copy; 2024 Emergency Vehicle Detection System. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+
+        loginBtn.addEventListener('click', function() {
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+            loginBtn.classList.add('active');
+            signupBtn.classList.remove('active');
+        });
+
+        signupBtn.addEventListener('click', function() {
+            signupForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+            signupBtn.classList.add('active');
+            loginBtn.classList.remove('active');
+        });
+    });
+</script>
+
+</html>

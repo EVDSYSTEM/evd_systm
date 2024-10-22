@@ -1,0 +1,253 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+header {
+    background-color: #5b6a7f;
+    color: #333;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px;
+    width: 150px;
+    margin-left: 15px;
+}
+
+.website-name {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #fff;
+    margin-left: 10px; /* Small space between logo and website name */
+}
+
+.user-icon a {
+    color: #fff;
+    font-size: 1.3em;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.menu-toggle {
+    display: none; /* Hide the menu toggle by default */
+    cursor: pointer;
+    color: #fff;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: #fff;
+    font-size: 1.7em;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+
+/* Main container styles */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+/* Form Container Styles */
+.form-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto; /* Centering the form */
+    margin-top: 100px;
+    margin-bottom: 150px;
+}
+
+/* Toggle Button Styles */
+.toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px; /* Space between buttons */
+    font-size: 16px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-buttons button:last-child {
+    margin-right: 0; /* Remove right margin from the last button */
+}
+
+.toggle-buttons button.active {
+    background-color: #4CAF50; /* Active button color */
+    color: white;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50; /* Highlight color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Button Styles */
+button[type="submit"] {
+    background-color: #4CAF50; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049; /* Darker button color on hover */
+}
+
+/* Flash Messages */
+.flashes {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.flashes li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    text-align: center; /* Centering text */
+}
+
+.flashes .success {
+    background-color: #4CAF50; /* Green for success messages */
+}
+
+.flashes .danger {
+    background-color: #f44336; /* Red for danger messages */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+.hidden {
+    display: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px; /* Space between nav items */
+}
+
+.login-button {
+    padding: 10px 15px;
+    background-color: #4CAF50; /* Button color */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #45a049; /* Darker on hover */
+}
+
+.user-icon {
+    width: 30px; /* Adjust size as needed */
+    height: auto;
+}
+
+        /* CSS for the footer */
+        footer {
+            background-color: #5b6a7f;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .vertical-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .vertical-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .vertical-nav a:hover {
+            text-decoration: underline;
+        }

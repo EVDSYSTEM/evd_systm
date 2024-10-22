@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Emergency Vehicle Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='loginCSS.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='contactCSS.css') }}">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo-container">
+        <a href="#" class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Emergency Vehicle Logo"></a>
+        <div class="website-name">Emergency Vehicle Detection System</div>
+    </div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <div class="menu-toggle">&#9776;</div>
+</header>
+
+<!-- Main Content -->
+<main>
+    <section class="contact-section">
+        <h1>Contact Us</h1>
+        <p>If you have any questions or concerns, feel free to contact us by filling out the form below.</p>
+
+        <form action="/contact" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <nav class="vertical-nav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <p>&copy; 2024 Emergency Vehicle Detection System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

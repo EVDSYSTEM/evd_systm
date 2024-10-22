@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navigation Menu with Logo and Website Name</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
+
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Emergency Vehicle Logo"></a>
+            <div class="website-name">Emergency Vehicle Detection System</div>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+
+
+        </nav>
+        
+        <div class="user-icon">
+            {% if logged_in %}
+                <!-- Show 'Logout' when the user is logged in -->
+                <a href="/logout">Logout</a>
+            {% else %}
+                <!-- Show 'Login' when the user is not logged in -->
+                <a href="{{ url_for('login_page') }}">Login</a>
+            {% endif %}
+        </div>
+            
+        <div class="menu-toggle">&#9776;</div>
+    </header>
+    
+
+        <div class="title_row">
+            <h2>Emergency Vehicle Detection System</h2>
+        </div>
+
+        <form id="detectionForm" action="/detect" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="destination_path" value="../static/uploads/img.jpg">
+            <div class="buttons_control_row">
+                <button class="btn" onclick="document.getElementById('file-upload').click()">Browse ...</button>
+                <!-- File input element (hidden) -->
+                <input type="file" id="file-upload" accept="image/*" style="display: none;" onchange="handleImageSelect(event)">
+                <button type="submit" id="startDetection" class="btn" >Start Detection</button>
+                <button class="btn" id="zipButton">Save Results</button>
+            </div>
+        
+            <div class="original_frame_row">
+                <div class="original_frame_row_img">
+                    <label for="2file-upload">
+                        <img id="selected-image"" class="upload-image" src="{{ url_for('static', filename='images/upload.png') }}" alt="Upload Image" >
+                    </label>
+        
+                    <img class="loading-image" src="{{ url_for('static', filename='images/loading2.gif') }}" alt="Additional Image">
+        
+                    <img id="output-image" class="additional-image" src="{{ url_for('static', filename='output/exp/img.jpg') }}" alt="Additional Image">
+                </div>
+            </div>
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('file-upload').addEventListener('change', handleImageSelect);
+            });
+            function handleImageSelect(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const selectedImage = document.getElementById('selected-image');
+                        selectedImage.src = e.target.result;
+                        
+                        // Copy the selected image to ../static/uploads/img.jpg
+                        copyImageToServer(file);
+                    };
+        
+                    reader.readAsDataURL(file);
+                }
+            }
+        
+            function copyImageToServer(file) {
+                const formData = new FormData();
+                formData.append('file', file);
+        
+                fetch('/copy-file', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Image copied successfully.');
+                    } else {
+                        console.error('Error copying image.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error copying image:', error);
+                });
+            }
+        </script>
+
+
+<script>
+    document.getElementById('startDetection').addEventListener('click', function() {
+        // Call the function to start the detection
+        startDetection();
+    });
+
+    function startDetection() {
+        // Get the selected file
+        var fileInput = document.getElementById('file-upload');
+        var file = fileInput.files[0];
+        
+        if (file) {
+            var formData = new FormData();
+            formData.append('file', file);
+
+            // Make an AJAX request to the /detect endpoint
+            fetch('/detect', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Update the page with the detection results if the element exists
+                var detectionResultsElement = document.getElementById('detectionResults');
+                if (detectionResultsElement) {
+                    detectionResultsElement.innerText = data;
+                }
+                
+                // Start checking for the new image after detection is complete
+                checkForNewImage();
+                
+                // Set up a timer to check for the image every 2 seconds
+                setInterval(checkForNewImage, 2000); // 2000 milliseconds = 2 seconds
+            })
+            .catch(error => {
+                console.error('Error initiating detection:', error);
+            });
+        } else {
+            console.error('No file selected.');
+        }
+    }
+
+    // Function to check for the existence of the new image file
+    function checkForNewImage() {
+        fetch('../static/output/exp/img.jpg')
+            .then(response => {
+                if (response.ok) {
+                    // Update the image source if the file exists
+                    document.getElementById('output-image').src = '../static/output/exp/img.jpg';
+                } else {
+                    // Display the default image if the file is not found
+                    document.getElementById('output-image').src = "{{ url_for('static', filename='images/load.gif') }}";
+                }
+            })
+            .catch(error => {
+                console.error('Error checking for new image:', error);
+            });
+    }
+</script>
+
+<!-- Include JSZip library -->
+<script>
+    document.getElementById('zipButton').addEventListener('click', function() {
+        fetch('/zip-folder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ folderPath: 'static/output/exp' })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Folder zipped successfully.');
+                // Optionally, you can provide a download link for the user to download the zip file
+            } else {
+                console.error('Error zipping folder.');
+            }
+        })
+        .catch(error => {
+            console.error('Error zipping folder:', error);
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+
+            function copyFile() {
+                // Get the selected file
+                var fileInput = document.getElementById('file-upload');
+                var file = fileInput.files[0];
+                
+                if (file) {
+                    // Create a new FormData object
+                    var formData = new FormData();
+                    formData.append('file', file);
+                    
+                    // Make a POST request to a route that handles file copying
+                    fetch('/copy-file', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('File copied successfully.');
+                        } else {
+                            console.error('Error copying file.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error copying file:', error);
+                    });
+                } else {
+                    console.error('No file selected.');
+                }
+            }
+
+            function displaySelectedImage() {
+                var fileInput = document.getElementById('file-upload');
+                var selectedImage = document.getElementById('selected-image');
+
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        selectedImage.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+    
+            document.getElementById('detectionForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+        // You can add code here to send the form data via AJAX for further processing if needed
+    });
+
+    document.getElementById('file-upload').addEventListener('change', displaySelectedImage);
+        </script>
+
+
+
+
+
+    <footer>
+        <nav2 class="vertical-nav">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+        <p>&copy; 2024 Emergency Vehicle Detection System. All rights reserved.</p>
+
+    </footer>
+
+
+
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var menuToggleBars = document.querySelector('.menu-toggle-bars');
+        if (menuToggleBars) {
+            menuToggleBars.addEventListener('click', function() {
+                var nav = document.querySelector('nav');
+                if (nav) {
+                    nav.classList.toggle('active');
+                }
+            });
+        }
+    });
+</script>
+
+
+
+
+<script>
+    function displayImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.getElementById('upload-image');
+                img.src = e.target.result;
+                img.style.width = "100%"; // Set uploaded image width to match upload-image width
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+
+
+</script>
+
+
+</body>
+
+</html>

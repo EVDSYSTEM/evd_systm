@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Emergency Vehicle Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='loginCSS.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='loginAbout.css') }}">
+
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo-container">
+        <a href="#" class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Emergency Vehicle Logo"></a>
+        <div class="website-name">Emergency Vehicle Detection System</div>
+    </div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+
+    </nav>
+    <div class="menu-toggle">&#9776;</div>
+</header>
+
+<!-- Main Content -->
+<main>
+    <section class="about-section">
+        <h1>About Emergency Vehicle Detection System</h1>
+        <p>
+            The Emergency Vehicle Detection System (EVDS) is designed to enhance road safety by detecting the presence of emergency vehicles and notifying nearby drivers in real time. This system helps ensure that emergency vehicles such as ambulances, fire trucks, and police cars can navigate through traffic efficiently, potentially saving lives.
+        </p>
+
+        <h2>Our Mission</h2>
+        <p>
+            Our mission is to minimize delays for emergency responders by utilizing advanced detection technologies, ensuring quicker access to incident sites. By integrating this system into existing infrastructure, we aim to reduce response times and increase overall road safety.
+        </p>
+
+        <h2>Benefits of the System</h2>
+        <ul>
+            <li>Improves emergency response times.</li>
+            <li>Enhances public safety by reducing accidents involving emergency vehicles.</li>
+            <li>Provides a seamless experience for both drivers and emergency personnel.</li>
+            <li>Helps traffic authorities manage road safety more effectively.</li>
+        </ul>
+
+        <h2>Future Goals</h2>
+        <p>
+            We are continually working to improve the accuracy and efficiency of the Emergency Vehicle Detection System. Our future plans include expanding the system capabilities by training the system on more datasets and using traffic images from different places.        
+        </p>
+
+        <h2>Contact Us</h2>
+        <p>
+            If you have any questions or would like to learn more about our system, feel free to reach out to us via our <a href="/contact">Contact Page</a>.
+        </p>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <nav class="vertical-nav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <p>&copy; 2024 Emergency Vehicle Detection System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
